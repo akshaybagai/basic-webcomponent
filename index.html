@@ -7,10 +7,20 @@
     <title>Web Components</title>
     <script src="tooltip.js"></script>
     <script src="confirm-link.js"></script>
+    <script type="module" src="node_modules/@vanillawc/wc-codemirror/index.js"></script>
 </head>
 <body>
     <p><uc-tooltip text="custom text">Web Components</uc-tooltip> are awesome!</p>
     <p><uc-tooltip></uc-tooltip> are awesome!</p>
     <a is="uc-confirm-link" href='https://www.google.com'>Google</a>
+
+    <wc-codemirror mode="javascript">
+        <script type="wc-content">
+  function myGoodPerson(){
+     return "what can I do for you ?"
+  }
+  </script>
+    </wc-codemirror>
+
 </body>
 </html>
