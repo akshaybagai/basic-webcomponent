@@ -2,25 +2,44 @@ class Tooltip extends HTMLElement {
   constructor() {
     super();
     this._toolTipContainer;
+    this._toolTipText = 'Dummy';
+
+    //required to attach a shadow dome tree
+    this.attachShadow({mode: "open"});
+
+    //the styles are scoped to shadow dom
+    this.shadowRoot.innerHTML = `
+        <style>
+            div {
+                background-color: black;
+                color: white;
+            }
+        </style>
+        <slot>Slot Default</slot>
+        <span>(?)</span>`
+    ;
   }
 
   connectedCallback() {
-    const tooltipIcon = document.createElement('span');
-    tooltipIcon.textContent = ' (?)';
+    if (this.hasAttribute('text')) {
+      this._toolTipText = this.getAttribute('text');
+    }
+    // const tooltipIcon = document.createElement('span');
+    const tooltipIcon = this.shadowRoot.querySelector('span');
     tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this));
     tooltipIcon.addEventListener('mouseleave', this._hideTooltip.bind(this));
-    this.appendChild(tooltipIcon);
+    this.shadowRoot.appendChild(tooltipIcon);
   }
 
   //_ indicates that you should not call this method from outside
   _showTooltip(){
     this._toolTipContainer = document.createElement('div');
-    this._toolTipContainer.textContent = 'This is a tool tip';
-    this.appendChild(this._toolTipContainer);
+    this._toolTipContainer.textContent = this._toolTipText;
+    this.shadowRoot.appendChild(this._toolTipContainer);
   }
 
   _hideTooltip(){
-    this.removeChild(this._toolTipContainer);
+    this.shadowRoot.removeChild(this._toolTipContainer);
   }
 }
 
