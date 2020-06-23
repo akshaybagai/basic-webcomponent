@@ -10,7 +10,12 @@
     <script type="module" src="node_modules/@vanillawc/wc-codemirror/index.js"></script>
 </head>
 <body>
-    <p><uc-tooltip text="custom text">Web Components</uc-tooltip> are awesome!</p>
+    <p style="color: #00A7AA">
+    <!-- Even though webcomponents is inside uc-tooltip the styles are not applied to it.         -->
+        <uc-tooltip text="custom text">
+            Web Components
+        </uc-tooltip> are awesome!
+    </p>
     <p><uc-tooltip></uc-tooltip> are awesome!</p>
     <a is="uc-confirm-link" href='https://www.google.com'>Google</a>
 
